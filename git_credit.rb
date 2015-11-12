@@ -54,8 +54,12 @@ class Credit
 
     # Score stats as percentages.
     sorted_stats.map do |stat|
-      [stat[0], ((stat[1] / total) * 100.0).round]
-    end
+      if stat[0] && stat[1] # Stupid to check for nil this far down.  Improve log line selection.
+        [stat[0], ((stat[1] / total) * 100.0).round]
+      else
+        nil
+      end
+    end.compact
   end
 end
 
